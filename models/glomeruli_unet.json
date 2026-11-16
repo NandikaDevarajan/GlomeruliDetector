@@ -1,0 +1,38 @@
+{
+  "name": "glomeruli-unet",
+  "description": "U-Net segmentation of glomeruli in renal histology images (fluorescence and brightfield PAS).",
+  "architecture": "UNet(base_channels=16, depth=4)",
+  "input_name": "image",
+  "output_name": "logits",
+  "input_layout": "NCHW",
+  "input_width": 512,
+  "input_height": 512,
+  "scale": 0.00392156862745098,
+  "mean": [
+    0.5,
+    0.5,
+    0.5
+  ],
+  "std": [
+    0.5,
+    0.5,
+    0.5
+  ],
+  "output_activation": "sigmoid",
+  "classes": [
+    "glomeruli"
+  ],
+  "trained_on_images": 26,
+  "validation_images": [
+    "64464 Merged 4_RGB",
+    "64468 Merged 2_RGB",
+    "65132 Mac2 488 PLN2 Cy5 dapi_XY07_Overlay",
+    "65132 Mac2 488 PLN2 Cy5 dapi_XY13_Overlay",
+    "71125_2",
+    "71126_1"
+  ],
+  "validation_iou": 0.7964,
+  "validation_dice": 0.8867,
+  "trained_at": "2026-10-30T11:46:07",
+  "trained_on": "NVIDIA GeForce RTX 5070 Laptop GPU"
+}

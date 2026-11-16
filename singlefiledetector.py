@@ -1,20 +1,21 @@
 ##############################################################################################
 # Purpose: This module provides a class to process a single image file for glomeruli detection.
-# It uses the AzureMLGlomeruliDetector to get predictions, draws polygons on the image
-# and saves the results in a CSV file.
+# It asks DetectorFactory for the detector that matches the configured DETECTION_MODE,
+# draws polygons on the image and saves the results in a CSV file.
 ##############################################################################################
 
 import os
 from datetime import datetime
 
 from polygondrawer import PolygonDrawer
-from azuremlglomerulidetector import AzureMLGlomeruliDetector
+from detectorfactory import DetectorFactory
 from resultparser import GlomeruliResultParser  
 from time import time
 
 class SingleFileDetector:
     def process_image(self, input_image_path):
-        detector = AzureMLGlomeruliDetector(input_image_path)
+        print(f"Detection mode: {DetectorFactory.describe()}")
+        detector = DetectorFactory.create(input_image_path)
         root_folder = os.path.basename(os.path.dirname(input_image_path))
         file_name = os.path.basename(input_image_path)
         print(f"Processing image: {root_folder}\\{file_name}")

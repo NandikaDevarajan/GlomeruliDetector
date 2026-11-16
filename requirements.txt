@@ -1,0 +1,11 @@
+# Runtime dependencies for the Glomeruli Detector application.
+#   pip install -r requirements.txt
+Pillow>=10.0
+numpy>=1.24
+shapely>=2.0
+
+# Needed when Constants.DETECTION_MODE is "local"
+onnxruntime>=1.17
+
+# Needed when Constants.DETECTION_MODE is "cloud"
+requests>=2.31
