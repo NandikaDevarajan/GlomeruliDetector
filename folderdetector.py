@@ -1,7 +1,7 @@
 ##############################################################################################
-# Purpose: This module provides a class to process a single image file for glomeruli detection.
-# It uses the AzureMLGlomeruliDetector to get predictions, draws polygons on the image
-# and saves the results in a CSV file.
+# Purpose: This module provides a class to walk a folder of images and detect glomeruli in
+# each one. It asks DetectorFactory for the detector that matches the configured
+# DETECTION_MODE, draws polygons on the images and saves the results in a CSV file.
 ##############################################################################################
 
 import os
@@ -9,11 +9,12 @@ from datetime import datetime
 
 from constants import Constants
 from polygondrawer import PolygonDrawer
-from azuremlglomerulidetector import AzureMLGlomeruliDetector
+from detectorfactory import DetectorFactory
 from resultparser import GlomeruliResultParser  
 
 class FolderDetector:
     def process_image(self, input_image_folder):
+        print(f"Detection mode: {DetectorFactory.describe()}")
         output_csv_path = self.get_results_csv_path()
         with open(output_csv_path, 'w') as csv_file:
             csv_file.write("File Name,Number of Glomeruli,Total Areas (microns),G1,G2,G3,G4,G5,G6,G7,G8,G9,G10\n")
@@ -28,7 +29,7 @@ class FolderDetector:
 
     def process_file(self, file_path, output_csv_path):
         from time import time
-        detector = AzureMLGlomeruliDetector(file_path)
+        detector = DetectorFactory.create(file_path)
         root_folder = os.path.basename(os.path.dirname(file_path))
         file_name = os.path.basename(file_path)
         print("*****************************************************************************")
